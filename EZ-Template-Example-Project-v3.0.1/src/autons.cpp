@@ -1,3 +1,4 @@
+#include "EZ-Template/util.hpp"
 #include "main.h"
 
 /////
@@ -62,62 +63,26 @@ void drive_example() {
   // The third parameter is a boolean (true or false) for enabling/disabling a slew at the start of drive motions
   // for slew, only enable it when the drive distance is greater then the slew distance + a few inches
 
-  wingDeployed();
-  pros::delay(1000);
-  wingRetract();
-  pros::delay(1000);
-  //1
-  wingDeployed();
-  pros::delay(1000);
-  wingRetract();
-  pros::delay(1000);
-  //2
-  wingDeployed();
-  pros::delay(1000);
-  wingRetract();
-  pros::delay(1000);
-  //3
-  wingDeployed();
-  pros::delay(1000);
-  wingRetract();
-  pros::delay(1000);
-  //4
-  wingDeployed();
-  pros::delay(1000);
-  wingRetract();
-  pros::delay(1000);
-
-  wingDeployed();
-  pros::delay(1000);
-  wingRetract();
-  pros::delay(1000);
-
-  wingDeployed();
-  pros::delay(1000);
-  wingRetract();
-  pros::delay(1000);
-
-  wingDeployed();
-  pros::delay(1000);
-  wingRetract();
-  pros::delay(1000);  
-
+  for(int i=0; i<11; i++) {
     wingDeployed();
-  pros::delay(1000);
-  wingRetract();
-  pros::delay(1000);
+    pros::delay(1000);
+    wingRetract();
+    pros::delay(1000);
+  }
 
-    wingDeployed();
-  pros::delay(1000);
-  wingRetract();
-  pros::delay(1000);
+  chassis.pid_swing_relative_set(ez::RIGHT_SWING, -45, SWING_SPEED);
+  chassis.pid_wait();
 
-    wingDeployed();
-  pros::delay(1000);
-  wingRetract();
-  pros::delay(1000);
+  chassis.pid_drive_set(-75_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
 
-  chassis.pid_drive_set (-65_in, DRIVE_SPEED, true);
+  chassis.pid_swing_relative_set(ez::RIGHT_SWING, -45, SWING_SPEED);
+  chassis.pid_wait();
+
+  wingDeployed();
+
+  chassis.pid_drive_set(-55_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
 }
 
 ///
